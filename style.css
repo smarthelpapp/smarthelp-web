@@ -1,61 +1,55 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f1ff;
-  margin: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
 }
-header {
-  background: linear-gradient(90deg, #6a0dad, #b14bff);
-  color: white;
-  padding: 20px;
-  text-align: center;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+
+/* Üst Başlık */
+.header {
+    padding: 40px 20px;
+    background: linear-gradient(90deg, #6a00ff, #c300ff);
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
-.tabs {
-  display: flex;
-  justify-content: space-around;
-  background: #fff;
-  padding: 10px;
+
+.header h1 {
+    margin: 0;
+    font-size: 42px;
 }
-.tab {
-  border: none;
-  padding: 12px 18px;
-  background: #6a0dad;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
+
+/* Menü */
+.menu-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
-.tab.active {
-  background: #b14bff;
+
+/* Menü Butonları */
+.menu-button {
+    width: 270px;
+    padding: 18px;
+    border-radius: 14px;
+    background: white;
+    color: #6a00ff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #6a00ff;
+    transition: 0.3s;
 }
-.page {
-  display: none;
-  padding: 15px;
+
+.menu-button:hover {
+    background: #6a00ff;
+    color: white;
+    cursor: pointer;
 }
-.page.active {
-  display: block;
-}
-.card {
-  background: white;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 12px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-.recipe-item, .fav-item {
-  background: #fff;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 12px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-between;
-}
-.recipe-item button, .fav-item button {
-  background: #6a0dad;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
+
+/* Hazırlanıyor olan menüler */
+.disabled {
+    opacity: 0.4;
+    pointer-events: none;
 }
