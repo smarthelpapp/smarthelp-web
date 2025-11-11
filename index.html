@@ -1,61 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SmartHelp • Yemek Asistanı</title>
-  <meta name="color-scheme" content="light dark">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartHelp - Yemek & Günlük Asistan</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="container">
-      <div class="brand">
-        <div class="logo">S</div>
-        <div>
-          <div class="title">SmartHelp</div>
-          <div class="subtitle">Ticari sürüm • API: https://smarthelp-api.onrender.com</div>
-        </div>
-      </div>
-      <div class="searchbar">
-        <input id="q" placeholder="Ne yemek istersin? Örn: 'tavuk', 'karnıyarık', 'vegan makarna'">
-        <button class="btn" id="btnSearch">Ara</button>
-      </div>
-      <div class="chips">
-        <button class="chip" data-q="tavuk">Tavuk</button>
-        <button class="chip" data-q="et">Et</button>
-        <button class="chip" data-q="sebze">Sebze</button>
-        <button class="chip" data-q="vegan">Vegan</button>
-        <button class="chip" data-q="çorba">Çorba</button>
-        <button class="chip" data-q="fırında">Fırında</button>
-        <button class="chip" data-q="keto">Keto</button>
-      </div>
-    </div>
-  </header>
+<header>
+    <h1>SmartHelp</h1>
+    <p>Akıllı Asistan • Tarif • Rutin • Favori ⭐</p>
+</header>
 
-  <main class="container">
-    <div id="grid" class="grid"></div>
-    <div id="empty" class="empty">Aradığın anahtar kelimeyle sonuç bulunamadı. Başka bir kelime dene.</div>
-  </main>
+<div class="tabs">
+    <button class="tab active" onclick="switchTab('dashboard')">🏠 Rutinim</button>
+    <button class="tab" onclick="switchTab('recipes')">🍽️ Yemek Asistanı</button>
+    <button class="tab" onclick="switchTab('favorites')">⭐ Favoriler</button>
+</div>
 
-  <!-- Tarif Modal -->
-  <div id="overlay" class="overlay" role="dialog" aria-modal="true">
-    <div class="modal">
-      <header class="modal-head">
-        <div class="modal-title" id="modalTitle">Tarif</div>
-        <button class="x" id="btnClose">✕</button>
-      </header>
-      <div class="content" id="modalBody">Yükleniyor…</div>
-    </div>
-  </div>
+<section id="dashboard" class="page active">
+    <h2>📌 Günlük Özet</h2>
+    <div class="card">✅ Toplantı notlarını gözden geçir</div>
+    <div class="card">🚶 30 dk yürüyüş</div>
+</section>
 
-  <footer>© 2025 SmartHelp • Ticari Sürüm</footer>
+<section id="recipes" class="page">
+    <h2>🍽️ Yemek Bul</h2>
+    <input id="searchInput" placeholder="örn: tavuk, makarna, köfte..." />
+    <button onclick="searchRecipe()">Tarif Ara</button>
 
-  <script>
-    window.SMARTHELP_CONFIG = {
-      API_BASE: "https://smarthelp-api.onrender.com"
-    };
-  </script>
-  <script src="app.js"></script>
+    <div id="recipeList"></div>
+</section>
+
+<section id="favorites" class="page">
+    <h2>⭐ Favori Tarifler</h2>
+    <div id="favList"></div>
+</section>
+
+<script src="app.js"></script>
 </body>
 </html>
