@@ -1,55 +1,45 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    text-align: center;
-}
-
-/* Üst Başlık */
-.header {
-    padding: 40px 20px;
-    background: linear-gradient(90deg, #6a00ff, #c300ff);
-    color: white;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 42px;
-}
-
-/* Menü */
-.menu-container {
-    margin-top: 50px;
+/* Yemek arama ekranı */
+.search-container {
+    margin: 30px auto;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
+    gap: 10px;
+    justify-content: center;
 }
 
-/* Menü Butonları */
-.menu-button {
-    width: 270px;
-    padding: 18px;
-    border-radius: 14px;
-    background: white;
-    color: #6a00ff;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
+#searchInput {
+    width: 250px;
+    padding: 14px;
+    border-radius: 10px;
     border: 2px solid #6a00ff;
-    transition: 0.3s;
 }
 
-.menu-button:hover {
+#searchBtn {
+    padding: 14px 20px;
     background: #6a00ff;
+    border: none;
     color: white;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 16px;
+    transition: .3s;
 }
 
-/* Hazırlanıyor olan menüler */
-.disabled {
-    opacity: 0.4;
-    pointer-events: none;
+#searchBtn:hover {
+    background: #8a3dff;
+}
+
+/* Tarif kartları */
+.results {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.recipe-card {
+    background: white;
+    border-radius: 14px;
+    border: 2px solid #6a00ff;
+    padding: 20px;
+    margin-bottom: 15px;
+    text-align: left;
 }
