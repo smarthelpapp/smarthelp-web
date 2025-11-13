@@ -15,11 +15,75 @@
 
 <div class="search-container">
     <input type="text" id="searchInput" placeholder="örn: tavuk, makarna, mercimek...">
-    <button id="searchBtn">Ara 🔍</button>
+    <button id="searchBtn" onclick="searchRecipes()">Ara 🔍</button>
 </div>
 
 <div id="resultList" class="results"></div>
 
-<script src="app.js"></script>
+<button id="showMoreBtn" onclick="showMore()" class="show-more">Daha Fazla Göster</button>
+
+<script>
+const API_URL = "https://smarthelp-api.onrender.com/recipes";
+let allResults = [];
+let displayedCount = 0;
+
+// 🔍 — ARAMA FONKSİYONU
+async function searchRecipes() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+
+    const res = await fetch(API_URL);
+    const data = await res.json();
+
+    allResults = data.filter(item =>
+        item.title.toLowerCase().includes(query) ||
+        item.ingredients.some(i => i.toLowerCase().includes(query))
+    );
+
+    displayedCount = 0;
+    document.getElementById("resultList").innerHTML = "";
+
+    showMore(); // ilk 20 göster
+    document.getElementById("showMoreBtn").style.display = "block";
+}
+
+// 📌 — DAHA FAZLA GÖSTER
+function showMore() {
+    const next = allResults.slice(displayedCount, displayedCount + 20);
+    displayedCount += 20;
+
+    renderResults(next);
+}
+
+// 📌 — SONUÇLARI EKRANA YAZDIRMA
+function renderResults(list) {
+    const container = document.getElementById("resultList");
+
+    list.forEach(r => {
+        const card = document.createElement("div");
+        card.className = "recipe-card";
+
+        card.innerHTML = `
+            <h2>${r.title}</h2>
+            <p><b>Kalori:</b> ${r.kcal}</p>
+            <p><b>Malzemeler:</b> ${r.ingredients.join(", ")}</p>
+
+            <button class="detailBtn">Tarifi Göster</button>
+
+            <div class="details" style="display:none;">
+                <h3>Hazırlanışı</h3>
+                <ol>${r.steps.map(s => `<li>${s}</li>`).join("")}</ol>
+            </div>
+        `;
+
+        card.querySelector(".detailBtn").addEventListener("click", () => {
+            const det = card.querySelector(".details");
+            det.style.display = det.style.display === "none" ? "block" : "none";
+        });
+
+        container.appendChild(card);
+    });
+}
+</script>
+
 </body>
 </html>
