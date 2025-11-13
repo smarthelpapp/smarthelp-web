@@ -1,27 +1,67 @@
-const apiBase = "https://smarthelp-api.onrender.com";
+const API_URL = "https://smarthelp-api.onrender.com/recipes";
 
-document.querySelector("#searchBtn").addEventListener("click", () => {
+let allResults = [];
+let displayedCount = 0;
+
+// 🔍 Arama
+document.querySelector("#searchBtn").addEventListener("click", searchRecipes);
+
+async function searchRecipes() {
     const q = document.querySelector("#searchInput").value.toLowerCase();
 
-    fetch(`${apiBase}/recipes/search?q=${q}`)
-        .then(res => res.json())
-        .then(data => {
-            const list = document.querySelector("#resultList");
-            list.innerHTML = "";
+    const res = await fetch(API_URL);
+    const data = await res.json();
 
-            if (data.length === 0) {
-                list.innerHTML = "<p>❌ Sonuç bulunamadı.</p>";
-                return;
-            }
+    // 🔎 Başlık + malzeme filtreleme
+    allResults = data.filter(item =>
+        item.title.toLowerCase().includes(q) ||
+        item.ingredients.some(i => i.toLowerCase().includes(q))
+    );
 
-            data.forEach(item => {
-                list.innerHTML += `
-                    <div class="recipe-card">
-                        <h3>${item.title}</h3>
-                        <p><strong>Kalori:</strong> ${item.kcal}</p>
-                        <p><strong>Malzemeler:</strong> ${item.ingredients.join(", ")}</p>
-                    </div>
-                `;
-            });
+    displayedCount = 0;
+    document.querySelector("#resultList").innerHTML = "";
+
+    showMore();
+
+    document.getElementById("showMoreBtn").style.display = "block";
+}
+
+// ➕ Daha Fazla Göster
+function showMore() {
+    const slice = allResults.slice(displayedCount, displayedCount + 20);
+    displayedCount += 20;
+    renderResults(slice);
+}
+
+// 🎨 Tarifleri Ekrana Bastır
+function renderResults(list) {
+    const container = document.querySelector("#resultList");
+
+    list.forEach(r => {
+        const el = document.createElement("div");
+        el.className = "recipe-card";
+
+        el.innerHTML = `
+            <h3>${r.title}</h3>
+            <p><strong>Kalori:</strong> ${r.kcal}</p>
+            <p><strong>Malzemeler:</strong> ${r.ingredients.join(", ")}</p>
+
+            <button class="detailBtn">Tarifi Göster</button>
+
+            <div class="details" style="display:none; margin-top:10px;">
+                <h4>Hazırlanışı</h4>
+                <ol>
+                    ${r.steps.map(s => `<li>${s}</li>`).join("")}
+                </ol>
+            </div>
+        `;
+
+        // 🔽 Butona tıklayınca aç/kapa
+        el.querySelector(".detailBtn").addEventListener("click", () => {
+            const det = el.querySelector(".details");
+            det.style.display = det.style.display === "none" ? "block" : "none";
         });
-});
+
+        container.appendChild(el);
+    });
+}
